@@ -1,4 +1,4 @@
-package javasweets;
+package cardinals.javasweets;
 
 public abstract class User {
 	
