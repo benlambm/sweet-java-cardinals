@@ -23,6 +23,7 @@ public class JavaSweetsDriver {
                 //Log in as customer
                 break;
             case 4:
+                scan.close();
                 System.exit(0);
 
             }
