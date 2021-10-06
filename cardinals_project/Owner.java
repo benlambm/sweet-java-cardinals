@@ -25,7 +25,8 @@ public class Owner extends AbstractUser {
             System.out.println("4. Add New Item");
             System.out.println("5. Remove Item from Inventory");
             System.out.println("6. Update Item's Price");
-            System.out.println("7. Return to Main Menu");
+            System.out.println("7. View All Orders");
+            System.out.println("8. Return to Main Menu");
             Scanner scan = new Scanner(System.in);
             int menuChoice = scan.nextInt();
             switch(menuChoice) {
@@ -48,6 +49,9 @@ public class Owner extends AbstractUser {
                     
                     break;
                 case 6:
+                    
+                    break;
+                case 7:
                     
                     break;
                 default:
