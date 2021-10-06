@@ -18,7 +18,7 @@ public class Customer extends AbstractUser {
 	}
 
     @Override
-    public ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory) {
+    public ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory, ArrayList<AnOrder> orders) {
         System.out.println("\nWelcome \" + username + \"!");
         while (true) {       
             System.out.println("\nPlease select and enter a number from the following choices:\n");
@@ -27,7 +27,7 @@ public class Customer extends AbstractUser {
             System.out.println("3. Place an Order");
             System.out.println("4. Pay for Order");
             System.out.println("5. Return to Main Menu");
-            ArrayList<AnOrder> orders = new ArrayList<>();
+            
             Inventory oneItem = null;
             int q = 0;
             

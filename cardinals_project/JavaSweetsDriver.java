@@ -10,6 +10,7 @@ public class JavaSweetsDriver {
         Scanner scan = new Scanner(System.in);
         ArrayList<User> users = new ArrayList<>();
         ArrayList<Inventory> inventory = new ArrayList<>();
+        ArrayList<AnOrder> orders = new ArrayList<>();
         
         while(true) {
             loadMainMenu();
@@ -34,7 +35,7 @@ public class JavaSweetsDriver {
                 if (currentUser == null) {
                     break;
                 }
-                currentUser.showMenu(inventory);
+                currentUser.showMenu(inventory, orders);
                 break;
             case 3:
                 scan.close();

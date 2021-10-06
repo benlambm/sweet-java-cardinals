@@ -64,6 +64,10 @@ public class Inventory {
         this.expDate = expDate;
     }
 
+    public void addToStock(int q) {
+        this.numInStock += q;       
+    }
+
 }
 /*
     public void compareTo(AnOrder item, String itemID) {

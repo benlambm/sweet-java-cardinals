@@ -8,7 +8,7 @@ public interface User {
     
     String checkPassword();
     
-    ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory);
+    ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory, ArrayList<AnOrder> orders);
     
     void viewInventory(ArrayList<Inventory> inventory);
     
