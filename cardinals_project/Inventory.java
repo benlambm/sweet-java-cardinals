@@ -1,17 +1,17 @@
-package cardinals.javasweets;
+package cardinals_project;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
 
 public class Inventory {
     
-    private String itemId;
+    private int itemId;
     private String name;
     private double cost;
     private int numInStock;
     private LocalDate expDate;
     
-    public Inventory(String id, String n, double c, int num, LocalDate e) {
+    public Inventory(int id, String n, double c, int num, LocalDate e) {
         itemId = id;
         name = n;
         cost = c;
@@ -21,14 +21,14 @@ public class Inventory {
 
     public String toString() {
         NumberFormat nf = NumberFormat.getCurrencyInstance();
-        return name + ": " + nf.format(cost) + " (" + numInStock + " in stock, expiration date: " + expDate + ")";
+        return "#" + itemId + " - " + name + ": " + nf.format(cost) + " (" + numInStock + " in stock, expiration date: " + expDate + ")";
     }
 
-    public String getItemId() {
+    public int getItemId() {
         return itemId;
     }
 
-    public void setItemId(String itemId) {
+    public void setItemId(int itemId) {
         this.itemId = itemId;
     }
 
@@ -67,7 +67,6 @@ public class Inventory {
 }
 /*
     public void compareTo(AnOrder item, String itemID) {
-
         if(item.getItemObject().equals(itemID)){
             return item.;
         }
@@ -77,8 +76,11 @@ public class Inventory {
         else
             return;
     }
-
     public double InvTotalPrice(double cost, double num) {
         double total = cost * num;
         return total;
     }*/
+
+
+
+

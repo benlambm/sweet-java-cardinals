@@ -1,58 +1,63 @@
-package cardinals.javasweets;
+package cardinals_project;
 
+import java.util.ArrayList;
+import java.util.Scanner;
 
-
-public class Owner extends User{
+public class Owner extends AbstractUser {	
 	
-	
+	public Owner(String username, String password) {
+        super(username, password);
+        
+    }
 
-private String id;
-//private Inventory inventory; 
-
-// empty constructor
-
-	public Owner() {
-		super();
-		
-	}	
-	
-// full constructor
-	
-		public Owner(String id) {
-		super();
-		this.id = id;
-	}
-		
-		// toString 
-		
-@Override
-		public String toString() {
-			return "Owner [id=" + id + ", password=" + password + "]";
-					}
-
-/*
- * view the inventory// has instance of the Inventory class once inventory is complete update I will update this
-•	search for an item by name or partial name// this should be a method in the driver
-•	add more stock to the inventory// What is a stock? Possibly a class. Is it Inventory? I think this can be done in the inventory.
-•	add items// this possibly in the stock / inventory should be written in inventory driver 
-•	delete an item// should be written in the inventory driver
-•	change prices
-•	Run a summary of all orders and/or payments processed
- Return to the main menu 
- * 
- */
-	// getters and setters 
-
-	public String getId() {
-		return id;
+    public String toString() {
+		return "Owner id=" + username + 
+				"Owner password=" + password;						
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    @Override
+    public ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory) {    
+        while(true) {
+            System.out.println("\nWelcome back Owner! Please select and enter a number from the following choices:\n");
+            System.out.println("1. View Inventory");
+            System.out.println("2. Search for Item");
+            System.out.println("3. Add More Stock");
+            System.out.println("4. Add New Item");
+            System.out.println("5. Remove Item from Inventory");
+            System.out.println("6. Update Item's Price");
+            System.out.println("7. Return to Main Menu");
+            Scanner scan = new Scanner(System.in);
+            int menuChoice = scan.nextInt();
+            switch(menuChoice) {
+                case 1:
+                    viewInventory(inventory);
+                    break;
+                case 2:
+                    Scanner input = new Scanner(System.in);
+                    System.out.println("What are you looking for?");
+                    String ss = input.nextLine();
+                    searchInventory(ss, inventory);
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+                case 5:
+                    
+                    break;
+                case 6:
+                    
+                    break;
+                default:
+                    return null;
+                 
+            }
+    
+        }
+    }
 	
-	
-   
-
-
 }
+
+

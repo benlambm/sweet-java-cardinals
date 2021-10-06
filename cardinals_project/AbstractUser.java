@@ -1,47 +1,44 @@
-package cardinals.javasweets;
+package cardinals_project;
 
-public abstract class User {
+import java.util.ArrayList;
+
+public abstract class AbstractUser implements User {	
+	protected String username;
+	protected String password;
 	
-protected String id;
-protected String password;
-
-
-public User() {
-
+    public AbstractUser(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+	
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+    
+    @Override
+    public String checkPassword() {
+        return this.password;
+    }
+    
+    @Override
+    public void viewInventory(ArrayList<Inventory> items) {
+        for (Inventory item : items) {
+            System.out.println(item.toString());
+        }
+        
+    }
+    
+    @Override
+    public void searchInventory(String searchString, ArrayList<Inventory> items) {
+        for (Inventory item : items) {
+            if (item.getName().indexOf(searchString) >= 0) {
+                System.out.println(item.toString());
+            }
+        }
+    }
+    
+    
+        
 }
 
-
-public User(String id, String password) {
-
-	this.id = id;
-	this.password = password;
-}
-
-
-@Override
-public String toString() {
-	return "User [id=" + id + ", password=" + password + "]";
-}
-
-
-public String getId() {
-	return id;
-}
-
-
-public void setId(String id) {
-	this.id = id;
-}
-
-
-public String getPassword() {
-	return password;
-}
-
-
-public void setPassword(String password) {
-	this.password = password;
-} 
-
-
-}
