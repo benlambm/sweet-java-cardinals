@@ -1,5 +1,6 @@
 package cardinals_project;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -56,15 +57,50 @@ public class Owner extends AbstractUser {
                     System.out.println("Enter quantity of items being added to stock: ");
                     q = inp_t.nextInt();
                     oneItem.addToStock(q);
+                    System.out.println("System Confirmation: Item Quantity has been updated.");
                     break;
                 case 4:
-                    //TODO add new item 
+                    Scanner itemScan = new Scanner(System.in);
+                    System.out.println("What is the name of the new item?");
+                    String name = itemScan.nextLine();
+                    System.out.println("What is the price of the new item?");
+                    double cost = scan.nextDouble();
+                    System.out.println("What is the quantity in stock?");
+                    int num = scan.nextInt();
+                    System.out.println("What is the expiration year?");
+                    int year = scan.nextInt();
+                    System.out.println("What is the expiration month?");
+                    int mo = scan.nextInt();
+                    System.out.println("What is the expiration day?");
+                    int day = scan.nextInt();
+                    inventory.add(new Inventory(name, cost, num, LocalDate.of(year, mo, day)));
+                    System.out.println("System Confirmation: New Item has been added.");
                     break;
                 case 5:
-                    //TODO remove item from inventory
+                    System.out.println("What is the ID# of the item to be removed? ");
+                    int idNum = scan.nextInt();
+                    for (int i = 0; i < inventory.size(); i++) {
+                        if (inventory.get(i).getItemId() == idNum) {
+                            System.out.println("System Confirmation: Item removed from Inventory.");
+                            inventory.remove(i);
+                            break;
+                        }
+                    }
+                    System.out.println("Item has been removed from inventory");
                     break;
                 case 6:
-                    //TODO update price of an item 
+                    System.out.println("Enter the item ID number: ");
+                    int idNo = scan.nextInt();
+
+                    for (Inventory item : inventory) {
+                        if (idNo == item.getItemId()) {
+                            oneItem = item;
+                        } 
+                    }
+                    System.out.println("What is the new price of the item? ");
+                    double newCost = scan.nextDouble();
+                    oneItem.changePrice(newCost);
+                    System.out.println("System Confirmation: Item Price has been updated.");
                     break;
                 case 7:
                     for (AnOrder order : orders) {

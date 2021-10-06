@@ -10,13 +10,14 @@ public class Inventory {
     private double cost;
     private int numInStock;
     private LocalDate expDate;
+    static int autoId = 101;
     
-    public Inventory(int id, String n, double c, int num, LocalDate e) {
-        itemId = id;
+    public Inventory(String n, double c, int num, LocalDate e) {
+        itemId = autoId++;
         name = n;
         cost = c;
         numInStock = num;
-        expDate = e;
+        expDate = e;    
     }
 
     public String toString() {
@@ -66,6 +67,11 @@ public class Inventory {
 
     public void addToStock(int q) {
         this.numInStock += q;       
+    }
+
+    public void changePrice(double newCost) {
+        this.cost = newCost;
+        
     }
 
 }
