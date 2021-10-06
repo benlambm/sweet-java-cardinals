@@ -19,7 +19,7 @@ public class Customer extends AbstractUser {
 
     @Override
     public ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory, ArrayList<AnOrder> orders) {
-        System.out.println("\nWelcome \" + username + \"!");
+        System.out.println("\nWelcome " + username + "!");
         while (true) {       
             System.out.println("\nPlease select and enter a number from the following choices:\n");
             System.out.println("1. View Sweets");

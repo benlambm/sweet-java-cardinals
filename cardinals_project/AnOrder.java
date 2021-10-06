@@ -1,5 +1,6 @@
 package cardinals_project;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 
 public class AnOrder {
@@ -16,7 +17,8 @@ public class AnOrder {
     }
 
     public String toString() {
-		return date + " : " + customer.username + " bought " + quantity + item.getName() + "(s) for cost of " + quantity * item.getCost();
+		NumberFormat nf = NumberFormat.getCurrencyInstance();
+        return date + " : " + customer.username + " bought " + quantity + " " + item.getName() + "(s) for cost of " + nf.format(quantity * item.getCost());
 	}
 
 }

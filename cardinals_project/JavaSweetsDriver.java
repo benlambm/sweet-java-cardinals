@@ -91,7 +91,7 @@ public class JavaSweetsDriver {
 
     private static void loadMainMenu() {
         System.out.println("\n\tWELCOME TO THE CARDINALS JAVA-SWEETS SHOP");
-        System.out.println("\nPlease select and enter a number from the following choices:");
+        System.out.println("\nPlease select and enter a number from the following choices (just the number please):");
         System.out.println("\n1. Load sample data");
         System.out.println("2. Login");
         System.out.println("3. Exit the application");
