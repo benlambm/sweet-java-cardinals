@@ -38,6 +38,16 @@ public class JavaSweetsDriver {
                 currentUser.showMenu(inventory, orders);
                 break;
             case 3:
+                Scanner input = new Scanner(System.in);
+                System.out.println("\nWelcome New Customer!\n");
+                System.out.println("Please enter a new username: ");
+                String name = input.nextLine();
+                System.out.println("Please enter a password: ");
+                String pswd = input.nextLine();
+                users.add(new Customer(name, pswd));
+                System.out.println("SYSTEM CONFIRMATION: New Customer Account Created. Please go to Login next.");
+                break;
+            default:
                 scan.close();
                 System.exit(0);
             }
@@ -84,6 +94,7 @@ public class JavaSweetsDriver {
     private static ArrayList<User> loadSampleUsers() {
         ArrayList<User> user = new ArrayList<>();
         user.add(new Owner("cardinal", "cardinal"));
+        user.add(new Customer("guest", "guest"));
         user.add(new Customer("Ben", "Lamb"));
         System.out.println("\nSample data successfully loaded!\n");
         return user;
@@ -94,7 +105,8 @@ public class JavaSweetsDriver {
         System.out.println("\nPlease select and enter a number from the following choices (just the number please):");
         System.out.println("\n1. Load sample data");
         System.out.println("2. Login");
-        System.out.println("3. Exit the application");
+        System.out.println("3. New Customer - Create Account");
+        System.out.println("4. Exit the application");
     }
     
     
