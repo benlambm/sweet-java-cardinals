@@ -32,7 +32,7 @@ public abstract class AbstractUser implements User {
     @Override
     public void searchInventory(String searchString, ArrayList<Inventory> items) {
         for (Inventory item : items) {
-            if (item.getName().indexOf(searchString) >= 0) {
+            if (item.getName().toLowerCase().indexOf(searchString.toLowerCase()) >= 0) {
                 System.out.println(item.toString());
             }
         }

@@ -7,8 +7,7 @@ import java.util.Scanner;
 public class Customer extends AbstractUser {
 		
 	public Customer(String username, String password) {
-        super(username, password);
-        
+        super(username, password);        
     }
 
     public void placeOrder(AnOrder o) {		
@@ -48,27 +47,31 @@ public class Customer extends AbstractUser {
                     Scanner inp_t = new Scanner(System.in);
                     NumberFormat nf = NumberFormat.getCurrencyInstance();
                     System.out.println("\nNote: Order one item at a time please. If you'd like to order more, place another order!\n");
-                    System.out.println("Enter the item ID number: ");
+                    System.out.println("Enter the item ID number (or you can enter 0 to go back): ");
                     int id = inp_t.nextInt();
-
+                    if (id == 0) {
+                        break;
+                    }
                     for (Inventory item : inventory) {
                         if (id == item.getItemId()) {
                             oneItem = item;
                         } 
                     }
+                    if (oneItem.getNumInStock() == 0) {
+                        System.out.println("Sorry, we sold out of those! Please try again.");
+                    }
                     System.out.println("How many would you like to order?");
                     q = inp_t.nextInt();
-                    double subtotal = 0;
-                    for (Inventory item : inventory) {
-                        if (id == item.getItemId()) {
-                            subtotal = item.getCost() * q;
-                        }
+                    if (q > oneItem.getNumInStock()) {
+                        System.out.println("Sorry, we only have " + oneItem.getNumInStock() + " of those left. Please try again.");
+                        break;
                     }
-                    System.out.println("\nYour total today is " + nf.format(subtotal) + ". Please pay at the window!");
-                 
+                    double subtotal = oneItem.getCost() * q;
+                    System.out.println("\nYour total today is " + nf.format(subtotal) + ". Please pay at the window!");        
                 case 4:
                     System.out.println("\n[You are herded toward the cashier. You see no option but to pay at this point.]\n");
                     orders.add(new AnOrder(this, oneItem, q));
+                    oneItem.setNumInStock(q);
                     System.out.println("Thank you for your business and come again!");
                     break;
                 default:

@@ -53,8 +53,8 @@ public class Inventory {
         return numInStock;
     }
 
-    public void setNumInStock(int numInStock) {
-        this.numInStock = numInStock;
+    public void setNumInStock(int numPurchased) {
+        this.numInStock -= numPurchased;
     }
 
     public LocalDate getExpDate() {

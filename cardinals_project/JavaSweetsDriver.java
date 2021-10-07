@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JavaSweetsDriver {
-
+    
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         ArrayList<User> users = new ArrayList<>();
         ArrayList<Inventory> inventory = new ArrayList<>();
         ArrayList<AnOrder> orders = new ArrayList<>();
+        boolean dataLoaded = false;
+        
         
         while(true) {
             loadMainMenu();
@@ -23,14 +25,19 @@ public class JavaSweetsDriver {
             }
             switch(menuOption) {
             case 1:
-                if (users.size() > 0) {
+                if (dataLoaded) {
                     System.out.println("Data has already been loaded.");
                     break;
                 }
                 users = loadSampleUsers();
                 inventory = loadSampleSweets();
+                dataLoaded = true;
                 break;
             case 2:
+                if (!dataLoaded) {
+                    System.out.println("Error: Please load sample data first.");
+                    break;
+                }
                 User currentUser = initiateLogin(users);
                 if (currentUser == null) {
                     break;
@@ -38,6 +45,10 @@ public class JavaSweetsDriver {
                 currentUser.showMenu(inventory, orders);
                 break;
             case 3:
+                if (!dataLoaded) {
+                    System.out.println("Error: Please load sample data first.");
+                    break;
+                }
                 Scanner input = new Scanner(System.in);
                 System.out.println("\nWelcome New Customer!\n");
                 System.out.println("Please enter a new username: ");
@@ -49,6 +60,7 @@ public class JavaSweetsDriver {
                 break;
             default:
                 scan.close();
+                System.out.println("Thank you and come again!");
                 System.exit(0);
             }
         }       
@@ -56,11 +68,12 @@ public class JavaSweetsDriver {
 
     private static ArrayList<Inventory> loadSampleSweets() {
         ArrayList<Inventory> items = new ArrayList<>();
-        items.add(new Inventory("Pumpkin Pie", 12.00, 5, LocalDate.of(2021, 10, 31)));
-        items.add(new Inventory("Pecan Rolls", 5.00, 8, LocalDate.of(2021, 10, 31)));
-        items.add(new Inventory("Maple-syrup Cookies", 2.00, 12, LocalDate.of(2021, 10, 31)));
-        items.add(new Inventory("Caramel-dipped Apple", 2.50, 13, LocalDate.of(2021, 10, 31)));
-        items.add(new Inventory("Pumpkin-banana Bread", 6.50, 4, LocalDate.of(2021, 10, 31)));
+        items.add(new Inventory("Pumpkin Pie", 12.95, 5, LocalDate.of(2021, 10, 31)));
+        items.add(new Inventory("Apple Cider Donut", 2.25, 35, LocalDate.of(2021, 10, 31)));
+        items.add(new Inventory("Pecan Roll", 5.00, 8, LocalDate.of(2021, 10, 31)));
+        items.add(new Inventory("Maple-syrup Candies", 2.00, 12, LocalDate.of(2021, 10, 31)));
+        items.add(new Inventory("Caramel-dipped Apple", 1.50, 13, LocalDate.of(2021, 10, 31)));
+        items.add(new Inventory("Pumpkin-banana Bread", 5.50, 4, LocalDate.of(2021, 10, 31)));
         return items;
     }
 
