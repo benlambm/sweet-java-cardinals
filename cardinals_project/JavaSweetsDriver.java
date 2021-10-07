@@ -16,14 +16,12 @@ public class JavaSweetsDriver {
         
         while(true) {
             loadMainMenu();
-            int menuOption = 0;
-            try {
-                menuOption = scan.nextInt();
-            } catch (Exception e) {
-                System.out.println("Just the number please! Try again from the beginning");
-                System.exit(0);
-            }
+            String str = scan.nextLine();
+            int menuOption = validateMenuInput(str);
+                      
             switch(menuOption) {
+            case 9:
+                continue;
             case 1:
                 if (dataLoaded) {
                     System.out.println("Data has already been loaded.");
@@ -66,6 +64,18 @@ public class JavaSweetsDriver {
         }       
     }
 
+    public static int validateMenuInput(String str) {
+        String str_dup = "" + str.charAt(0);
+        try {
+            Integer.parseInt(str_dup);
+        } catch (Exception e) {
+            System.out.println("Error: not a number. Please try again.");
+            str = "9";
+        }
+        int menuOption = Integer.parseInt("" + str.charAt(0));
+        return menuOption;
+    }
+
     private static ArrayList<Inventory> loadSampleSweets() {
         ArrayList<Inventory> items = new ArrayList<>();
         items.add(new Inventory("Pumpkin Pie", 12.95, 5, LocalDate.of(2021, 10, 31)));
@@ -80,7 +90,6 @@ public class JavaSweetsDriver {
     private static User initiateLogin(ArrayList<User> users) {
         Scanner scan = new Scanner(System.in);
         boolean loggedIn = false;
-        boolean owner = false;
         User currentUser = null;
         System.out.println("\nTHE LOGIN SCREEN:\n");
         System.out.println("Please enter your username: ");
@@ -91,9 +100,6 @@ public class JavaSweetsDriver {
             if (user.getUsername().equals(name) && user.checkPassword().equals(pswd)) {
                 System.out.println("...Login successful...");
                 loggedIn = true;
-                if (user.getClass().getSimpleName().equals("Owner")) {
-                    owner = true;
-                }
                 currentUser = user;
             }
         }
@@ -121,7 +127,6 @@ public class JavaSweetsDriver {
         System.out.println("3. New Customer - Create Account");
         System.out.println("4. Exit the application");
     }
-    
     
 }
 

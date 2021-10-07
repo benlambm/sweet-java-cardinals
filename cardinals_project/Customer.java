@@ -10,12 +10,6 @@ public class Customer extends AbstractUser {
         super(username, password);        
     }
 
-    public void placeOrder(AnOrder o) {		
-	}
-	
-	public void pay() {	
-	}
-
     @Override
     public ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory, ArrayList<AnOrder> orders) {
         System.out.println("\nWelcome " + username + "!");
@@ -27,12 +21,14 @@ public class Customer extends AbstractUser {
             System.out.println("4. Pay for Order");
             System.out.println("5. Return to Main Menu");
             
+            
             Inventory oneItem = null;
             int q = 0;
-            
-            
             Scanner scan = new Scanner(System.in);
-            int menuChoice = scan.nextInt();
+            String str = scan.nextLine();
+            int menuChoice = JavaSweetsDriver.validateMenuInput(str);
+            
+            
             switch(menuChoice) {
                 case 1:
                     viewInventory(inventory);
@@ -69,14 +65,17 @@ public class Customer extends AbstractUser {
                     double subtotal = oneItem.getCost() * q;
                     System.out.println("\nYour total today is " + nf.format(subtotal) + ". Please pay at the window!");        
                 case 4:
+                    if (oneItem == null) {
+                        System.out.println("Place an order first.");
+                        break;
+                    }
                     System.out.println("\n[You are herded toward the cashier. You see no option but to pay at this point.]\n");
                     orders.add(new AnOrder(this, oneItem, q));
                     oneItem.setNumInStock(q);
                     System.out.println("Thank you for your business and come again!");
                     break;
                 default:
-                    return orders;
-                 
+                    return orders;       
             }
         }    
     }

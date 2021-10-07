@@ -31,9 +31,11 @@ public class Owner extends AbstractUser {
             
             Inventory oneItem = null;
             int q = 0;
-            
             Scanner scan = new Scanner(System.in);
-            int menuChoice = scan.nextInt();
+            String str = scan.nextLine();
+            int menuChoice = JavaSweetsDriver.validateMenuInput(str);
+            
+            
             switch(menuChoice) {
                 case 1:
                     viewInventory(inventory);
