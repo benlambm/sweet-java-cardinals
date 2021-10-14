@@ -105,6 +105,10 @@ public class Owner extends AbstractUser {
                     System.out.println("System Confirmation: Item Price has been updated.");
                     break;
                 case 7:
+                    if (orders.isEmpty()) {
+                        System.out.println("No orders yet. You need some customers first!");
+                        break;
+                    }
                     for (AnOrder order : orders) {
                         System.out.println(order);
                     }

@@ -1,22 +1,35 @@
 package cardinals_project;
 
 public class LineItem {
-	private int number; 
-	private double costEach;
-	Inventory invent;
-	
-	public LineItem() {
-		super();
-		
-	}
-	
-	
-	public LineItem(int number, double costEach, Inventory invent) {
-		super();
-		this.number = number;
-		this.costEach = costEach;
-		this.invent = invent;
-	}
-	
+    private Inventory lineItem;
+    private int quantity;
+    
+    public LineItem(Inventory lineItem, int quantity) {
+        this.lineItem = lineItem;
+        this.quantity = quantity;
+    }
 
+    public Inventory getLineItem() {
+        return lineItem;
+    }
+
+    public void setLineItem(Inventory lineItem) {
+        this.lineItem = lineItem;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "LineItem: " + lineItem + ", quantity=" + quantity + "\n";
+    }
+    
+    
+    
 }

@@ -2,23 +2,30 @@ package cardinals_project;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class AnOrder {
-	Customer customer;
-	Inventory item;
-	int quantity;
+	ArrayList<LineItem> lineItems;
 	LocalDate date;
+	Payment payment;
 
-	public AnOrder(Customer customer, Inventory item, int quantity) {
-        this.customer = customer;
-        this.item = item;
-        this.quantity = quantity;
-        this.date = LocalDate.now();
+
+    public AnOrder(ArrayList<LineItem> lineItems, LocalDate date, Payment payment) {
+        this.lineItems = lineItems;
+        this.date = date;
+        this.payment = payment;
     }
+
 
     public String toString() {
 		NumberFormat nf = NumberFormat.getCurrencyInstance();
-        return date + " : " + customer.username + " bought " + quantity + " " + item.getName() + "(s) for cost of " + nf.format(quantity * item.getCost());
+		String purchased = "";
+		for (LineItem li : lineItems) {
+		    purchased += li.toString();
+		}
+		
+        return date + " : " + payment.getCustomer().getUsername() + " spent a total of " + nf.format(payment.getTotalCost()) + " on \n"
+            + purchased; 
 	}
 
 }

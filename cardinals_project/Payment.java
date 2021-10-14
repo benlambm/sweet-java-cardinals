@@ -1,38 +1,38 @@
 package cardinals_project;
 
-import java.time.LocalDate;
-
 public class Payment {
-	LocalDate date;
-	private double amount;
-	AnOrder order;
+	Customer customer;
+	double totalCost;
+	String paymentType;
+	
+    public Payment(Customer customer, double totalCost, String paymentType) {
+        this.customer = customer;
+        this.totalCost = totalCost;
+        this.paymentType = paymentType;
+    }
 
-	public Payment() {
-		super();
+    public Customer getCustomer() {
+        return customer;
+    }
 
-	}
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
-	public Payment(LocalDate date, double amount, AnOrder order) {
-		super();
-		this.date = date;
-		this.amount = amount;
-		this.order = order;
-	}
+    public double getTotalCost() {
+        return totalCost;
+    }
 
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
 		
-	
-	
-	@Override
-	public String toString() {
-		return "Payment [date=" + date + ", amount=" + amount + ", order=" + order + "]";
-	}
-
-	public double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
-
 }
