@@ -46,22 +46,6 @@ insert into desserts (itemId, itemName, cost, numInStock, expDate) values (4, 'M
 insert into desserts (itemId, itemName, cost, numInStock, expDate) values (5, 'Caramel-Dipped Apple', 1.50, 13, '2020-11-30');
 insert into desserts (itemId, itemName, cost, numInStock, expDate) values (6, 'Pumpkin-Banana Bread', 6.95, 14, '2020-11-30');
 
-insert into allOrders (orderId, userId, orderDate) values (101, 'guest', '2021-10-24');
-insert into allOrders (orderId, userId, orderDate) values (102, 'guest', '2021-09-27');
-insert into allOrders (orderId, userId, orderDate) values (103, 'guest', '2021-10-20');
-insert into allOrders (orderId, userId, orderDate) values (104, 'JamesBond', '2021-11-18');
-insert into allOrders (orderId, userId, orderDate) values (105, 'JamesBond', '2021-11-18');
-
-insert into lineItem (itemId, orderId, numberOrdered) values (1, 101, 2);
-insert into lineItem (itemId, orderId, numberOrdered) values (2, 101, 5);
-insert into lineItem (itemId, orderId, numberOrdered) values (3, 102, 1);
-insert into lineItem (itemId, orderId, numberOrdered) values (4, 103, 12);
-insert into lineItem (itemId, orderId, numberOrdered) values (5, 103, 2);
-insert into lineItem (itemId, orderId, numberOrdered) values (6, 104, 4);
-insert into lineItem (itemId, orderId, numberOrdered) values (6, 105, 3);
-insert into lineItem (itemId, orderId, numberOrdered) values (1, 105, 1);
-insert into lineItem (itemId, orderId, numberOrdered) values (2, 105, 6);
-
 
 CREATE PROCEDURE sp_adjuststock
 (tmp_itemId int,

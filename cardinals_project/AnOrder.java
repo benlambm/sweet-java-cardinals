@@ -9,7 +9,7 @@ public class AnOrder {
     private ArrayList<LineItem> lineItems;
 	private LocalDate date;
 	private Payment payment;
-	private static int orderStartNum = 105;
+	private static int orderStartNum = 100;
 
 
     public AnOrder(ArrayList<LineItem> lineItems, LocalDate date, Payment payment) {
