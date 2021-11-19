@@ -1,5 +1,6 @@
 package cardinals_project;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,40 +11,98 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class JavaSweetsMethodsDB {
 	private static Connection con;
 	private static Statement stmt;
 
 	public Connection createConnection() {
-
 		con = null;
-
 		String name = "cardinals220";
 		String url = "jdbc:mysql://localhost:3306/" + name;
-
 		String uid = "itp220";
 		String pass = "itp220";
-
 		String driver = "com.mysql.jdbc.Driver";
-
 		try {
 			Class.forName(driver);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
+		}	
 		try {
 			con = DriverManager.getConnection(url, uid, pass);
 			System.out.println("Connection successful!");
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		System.out.println("A new connection was made");
 		return con;
 	}
+
+    
+    public ArrayList<User> loadSampleUsers(Connection con) {
+        String query = "SELECT * FROM users";
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        ArrayList<User> users = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            rs = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            while(rs.next()) {
+                String uname = rs.getString(1);
+                String pword = rs.getString(2);
+                boolean own = rs.getBoolean(3);
+                if(own) {
+                    users.add(new Owner(uname, pword));
+                } else {
+                    users.add(new Customer(uname, pword));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    
+    public ArrayList<Inventory> loadSampleSweets(Connection con) {
+        String query = "SELECT * FROM desserts";
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        ArrayList<Inventory> inv = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String itemName = rs.getString(2);
+                double cost = rs.getDouble(3);
+                int num = rs.getInt(4);
+                LocalDate date = rs.getDate(5).toLocalDate();
+                inv.add(new Inventory(id, itemName, cost, num, date));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return inv;
+    }
+	
+	
+	
+	
 
 	public void viewInventory() {
 		try {
@@ -201,66 +260,20 @@ public class JavaSweetsMethodsDB {
         }
     }
 
-	
-    public ArrayList<User> loadSampleUsers(Connection con) {
-        String query = "SELECT * FROM users";
-        Statement stmt = null;
+
+    public void createNewCustomer(String name, String pswd) {
         try {
-            stmt = con.createStatement();
+            CallableStatement ca;
+            String storedProcedure = "call sp_adduser(\'" + name + "\', \'" + pswd + "\')";
+            ca = con.prepareCall(storedProcedure);
+            ca.executeQuery();
+            System.out.println("Adding user...");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        ArrayList<User> users = new ArrayList<>();
-        ResultSet rs = null;
-        try {
-            rs = stmt.executeQuery(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            while(rs.next()) {
-                String uname = rs.getString(1);
-                String pword = rs.getString(2);
-                boolean own = rs.getBoolean(3);
-                if(own) {
-                    users.add(new Owner(uname, pword));
-                } else {
-                    users.add(new Customer(uname, pword));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return users;
     }
 
-    
-    public ArrayList<Inventory> loadSampleSweets(Connection con) {
-        String query = "SELECT * FROM desserts";
-        Statement stmt = null;
-        try {
-            stmt = con.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        ArrayList<Inventory> inv = new ArrayList<>();
-        ResultSet rs = null;
-        try {
-            rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                String itemName = rs.getString(2);
-                double cost = rs.getDouble(3);
-                int num = rs.getInt(4);
-                LocalDate date = rs.getDate(5).toLocalDate();
-                inv.add(new Inventory(id, itemName, cost, num, date));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return inv;
-    }
+
+
 }

@@ -63,5 +63,49 @@ insert into lineItem (itemId, orderId, numberOrdered) values (1, 105, 1);
 insert into lineItem (itemId, orderId, numberOrdered) values (2, 105, 6);
 
 
+CREATE PROCEDURE sp_adjuststock
+(tmp_itemId int,
+tmp_num int)
+UPDATE desserts
+SET numInStock = tmp_num
+WHERE itemId = tmp_itemId;
+
+
+CREATE PROCEDURE sp_addinventory
+(tmp_itemId int,
+tmp_itemName varchar(50),
+tmp_cost decimal(5,2),
+tmp_numInStock int,
+tmp_expDate date)
+INSERT INTO desserts
+VALUES (tmp_itemId, tmp_itemName, tmp_cost, tmp_numInStock, tmp_expDate);
+
+
+CREATE PROCEDURE sp_removeinventory
+(tmp_itemId int)
+DELETE FROM desserts
+WHERE itemId = tmp_itemId;
+
+CREATE PROCEDURE sp_updateprice
+(tmp_itemId int,
+tmp_cost decimal(5,2))
+UPDATE desserts
+SET cost = tmp_cost
+WHERE itemId = tmp_itemId;
+
+
+CREATE PROCEDURE sp_adduser
+(tmp_uname varchar(35),
+tmp_pword varchar(35))
+INSERT INTO users
+VALUES (tmp_uname, tmp_pword, false);
+
+
+--CREATE PROCEDURE sp_getID
+--(first varchar(20),
+-- last varchar(30))
+--SELECT authorID FROM authors WHERE firstName = first AND lastName = last;
+  
+
 
 

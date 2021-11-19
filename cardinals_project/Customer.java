@@ -87,7 +87,8 @@ public class Customer extends AbstractUser {
                         break;
                     }
                     System.out.println("\n[You are herded toward the cashier. You see no option but to pay at this point.]\n");
-                    System.out.println("Hi! Your total charge is " + nf.format(subtotal) + ". How would you like to pay today?");
+                    System.out.println("Hi! Your total charge is " + nf.format(subtotal) + 
+                        ". How would you like to pay today? (We accept pretty much anything including IOUs! Just tell us what you prefer)");
                     String paymentType = inp_t.next();                    
                     orders.add(new AnOrder(lineItems, LocalDate.now(), new Payment(this, subtotal, paymentType)));
                     oneItem.setNumInStock(q);

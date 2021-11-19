@@ -36,7 +36,7 @@ public class JavaSweetsDriverDB {
                 break;
             case 2:
                 if (!dataLoaded) {
-                    System.out.println("Error: Please load sample data first.");
+                    System.out.println("Error: Please connect to database first.");
                     break;
                 }
                 User currentUser = initiateLogin(users);
@@ -47,7 +47,7 @@ public class JavaSweetsDriverDB {
                 break;
             case 3:
                 if (!dataLoaded) {
-                    System.out.println("Error: Please load sample data first.");
+                    System.out.println("Error: Please connect to database first.");
                     break;
                 }
                 Scanner input = new Scanner(System.in);
@@ -56,8 +56,14 @@ public class JavaSweetsDriverDB {
                 String name = input.nextLine();
                 System.out.println("Please enter a password: ");
                 String pswd = input.nextLine();
-                users.add(new Customer(name, pswd));
-                System.out.println("SYSTEM CONFIRMATION: New Customer Account Created. Please go to Login next.");
+                try {
+                    Customer newCustomer = new Customer(name, pswd);      
+                    users.add(newCustomer);
+                    db.createNewCustomer(name, pswd);
+                    System.out.println("SYSTEM CONFIRMATION: New Customer Account Created. Please go to Login next.");
+                } catch(Exception e) {
+                    System.out.println("Unknown error: please try again in a few minutes.");
+                }
                 break;
             default:
                 scan.close();
