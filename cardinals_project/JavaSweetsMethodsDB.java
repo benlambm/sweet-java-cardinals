@@ -55,31 +55,26 @@ public class JavaSweetsMethodsDB {
 			e2.printStackTrace();
 		}
 		  
-		  String query = "select * from inventory";
+		String query = "select * from inventory";
 	        
-		  try
-			{
-					stmt = con.createStatement();
-					
-			
-					ResultSet rs = stmt.executeQuery(query);
-					System.out.println(" ");
-					System.out.println("Inventory: ");
-
-
-					ResultSetMetaData meta = rs.getMetaData();
-					int columns = meta.getColumnCount();
-					
-					while (rs.next()) 
-					{
-						
-						for (int i=1;i<columns+1;i++)
-						{
-							String s = rs.getString(i);
-							System.out.print(s + "  " );
-						}
-						System.out.println("");
+		try {
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+				System.out.println(" ");
+				System.out.println("Inventory: ");
+				ResultSetMetaData meta = rs.getMetaData();
+				int columns = meta.getColumnCount();
+				
+				while (rs.next()) {
+					for (int i=1;i<columns+1;i++) {
+						String s = rs.getString(i);
+						System.out.print(s + "  " );
 					}
+					System.out.println("");
+				}        
+			} catch (SQLException e2) {
+	            e2.printStackTrace();
+	        }
 	}
 
 	public void searchInventory() {
@@ -88,7 +83,7 @@ public class JavaSweetsMethodsDB {
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-		Scanner itemScan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);
 		System.out.println("What are you looking for?");
 		String item = scan.next();
 
@@ -117,9 +112,9 @@ public class JavaSweetsMethodsDB {
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-		Scanner itemScan = new Scanner(System.in);
+		Scanner scan = new Scanner(System.in);
 		System.out.println("What is the name of the new item?");
-		String name = itemScan.nextLine();
+		String name = scan.nextLine();
 		System.out.println("What is the price of the new item?");
 		double cost = scan.nextDouble();
 		System.out.println("What is the quantity in stock?");
@@ -136,24 +131,16 @@ public class JavaSweetsMethodsDB {
 
 		try {
 			stmt.executeUpdate(
-					"insert into inventory " + "values('" + name + "','" + cost + "','" + num + "','" + date + "')");// LocalDate
-																														// needs
-																														// to
-																														// be
-																														// checked
-																														// also
-																														// how
-																														// to
-																														// handle
-																														// id
-																														// here?????
+					"insert into inventory " + "values('" + name + "','" + cost + "','" + num + "','" + date + "')");
+			// LocalDate needs to be checked and how to handle local date
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void removeItem ()
-	{
+	public void removeItem() {
+    Scanner scan = new Scanner(System.in);
+	
 		try {
 			stmt = con.createStatement();
 		} catch (SQLException e2) {
@@ -162,15 +149,15 @@ public class JavaSweetsMethodsDB {
 		System.out.println("What is the ID# of the item to be removed? ");
         int idNum = scan.nextInt();
         try {
-    		stmt.executeUpdate("delete from inventory " +
-    	            "wehre id = "+idNum)
+    		stmt.executeUpdate("delete from inventory " + "wehre id = "+idNum);
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
-
-	public void updatePrice() 
-    {
-    	try {
+	}
+	
+	public void updatePrice(){
+	    Scanner scan = new Scanner(System.in);
+	    try {
 			stmt = con.createStatement();
 		} catch (SQLException e2) {
 			e2.printStackTrace();
@@ -181,7 +168,7 @@ public class JavaSweetsMethodsDB {
     	System.out.println("What is the new price of the item? ");
         double newCost = scan.nextDouble();
         try {
-    		stmt.executeUpdate("update inventory set cost = "+newCost+" where itemId= "+idNo+")")
+    		stmt.executeUpdate("update inventory set cost = "+newCost+" where itemId= "+idNo);
     			
     	} catch (SQLException e) {
     		e.printStackTrace();
@@ -189,38 +176,34 @@ public class JavaSweetsMethodsDB {
         
 	}
 
-	public void viewOrders() 
-    {
+	public void viewOrders() {
     	try {
 			stmt = con.createStatement();
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 		  
-		  String query = "select * from orders";
+		String query = "select * from orders";
 	        
-		  try
-			{
+		try {
 					stmt = con.createStatement();					
 			
 					ResultSet rs = stmt.executeQuery(query);
 					System.out.println(" ");
 					System.out.println("All Orders: ");
-
-
 					ResultSetMetaData meta = rs.getMetaData();
 					int columns = meta.getColumnCount();
 					
-					while (rs.next()) 
-					{
-						
-						for (int i=1;i<columns+1;i++)
-						{
+					while (rs.next()){
+						for (int i=1;i<columns+1;i++) {
 							String s = rs.getString(i);
 							System.out.print(s + "  " );
 						}
 						System.out.println("");
 					}
+			} catch (SQLException e2) {
+	            e2.printStackTrace();
+	        }
     }
 
 	public void placeAnOder() {

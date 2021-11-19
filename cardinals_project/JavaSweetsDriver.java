@@ -78,12 +78,12 @@ public class JavaSweetsDriver {
 
     private static ArrayList<Inventory> loadSampleSweets() {
         ArrayList<Inventory> items = new ArrayList<>();
-        items.add(new Inventory("Pumpkin Pie", 12.95, 5, LocalDate.of(2021, 10, 31)));
-        items.add(new Inventory("Apple Cider Donut", 2.25, 35, LocalDate.of(2021, 10, 31)));
-        items.add(new Inventory("Pecan Roll", 5.00, 8, LocalDate.of(2021, 10, 31)));
-        items.add(new Inventory("Maple-syrup Candies", 2.00, 12, LocalDate.of(2021, 10, 31)));
-        items.add(new Inventory("Caramel-dipped Apple", 1.50, 13, LocalDate.of(2021, 10, 31)));
-        items.add(new Inventory("Pumpkin-banana Bread", 5.50, 4, LocalDate.of(2021, 10, 31)));
+        items.add(new Inventory("Pumpkin Pie", 12.95, 5, LocalDate.of(2021, 11, 31)));
+        items.add(new Inventory("Apple Cider Donut", 2.25, 35, LocalDate.of(2021, 11, 31)));
+        items.add(new Inventory("Pecan Roll", 5.00, 8, LocalDate.of(2021, 11, 31)));
+        items.add(new Inventory("Maple-syrup Candies", 2.00, 12, LocalDate.of(2021, 11, 31)));
+        items.add(new Inventory("Caramel-dipped Apple", 1.50, 13, LocalDate.of(2021, 11, 31)));
+        items.add(new Inventory("Pumpkin-banana Bread", 5.50, 4, LocalDate.of(2021, 11, 31)));
         return items;
     }
 
