@@ -1,6 +1,8 @@
 package cardinals_project;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -63,6 +65,10 @@ public class Customer extends AbstractUser {
                                 oneItem = item;
                             } 
                         }
+                        if (oneItem==null) {
+                            System.out.println("Id# not recognized. Please try again.");
+                            break;
+                        }
                         if (oneItem.getNumInStock() == 0) {
                             System.out.println("Sorry, we sold out of those! Please try again.");
                         }
@@ -81,17 +87,42 @@ public class Customer extends AbstractUser {
                             hasMoreToOrder = false;
                         }
                     }
-                    System.out.println("Thank you for this order. Please pay at the window!");        
+                    if(oneItem != null) {
+                        System.out.println("Thank you for this order. Please pay at the window!");    
+                    }
+                        
                 case 4:
                     if (oneItem == null) {
-                        System.out.println("Place an order first.");
                         break;
                     }
                     System.out.println("\n[You are herded toward the cashier. You see no option but to pay at this point.]\n");
                     System.out.println("Hi! Your total charge is " + nf.format(subtotal) + 
                         ". How would you like to pay today? (We accept pretty much anything including IOUs! Just tell us what you prefer)");
-                    String paymentType = inp_t.next();                    
-                    orders.add(new AnOrder(lineItems, LocalDate.now(), new Payment(this, subtotal, paymentType)));
+                    String paymentType = inp_t.next();  
+                    //database version
+                    AnOrder newOrder = new AnOrder(lineItems, LocalDate.now(), new Payment(this, subtotal, paymentType));
+                    try {
+                        CallableStatement ca;
+                        String storedProcedure = "call sp_addorder(\'" + newOrder.getOrderId() + "\', \'" + this.username + "\', \'" + LocalDate.now() + "\')";
+                        ca = con.prepareCall(storedProcedure);
+                        ca.executeQuery();
+                        System.out.println("Placing order...");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    for (LineItem lineItem : lineItems) {
+                        try {
+                            CallableStatement ca;
+                            String storedProcedure = "call sp_addlineitem(\'" + oneItem.getItemId() + "\', \'" + newOrder.getOrderId() + "\', \'" + q + "\')";
+                            ca = con.prepareCall(storedProcedure);
+                            ca.executeQuery();
+                            System.out.println("Recording order details...");
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }                    
+                    //update console memory
+                    orders.add(newOrder);
                     oneItem.setNumInStock(q);
                     System.out.println("Thank you for your business and come again!");
                     break;
