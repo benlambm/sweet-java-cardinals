@@ -43,7 +43,7 @@ public class JavaSweetsDriverDB {
                 if (currentUser == null) {
                     break;
                 }
-                currentUser.showMenu(inventory, orders);
+                currentUser.showMenu(inventory, orders, con);
                 break;
             case 3:
                 if (!dataLoaded) {

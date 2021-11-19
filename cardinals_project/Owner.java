@@ -1,11 +1,14 @@
 package cardinals_project;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Owner extends AbstractUser {	
-	
+
 	public Owner(String username, String password) {
         super(username, password);
         
@@ -17,7 +20,7 @@ public class Owner extends AbstractUser {
 	}
 
     @Override
-    public ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory, ArrayList<AnOrder> orders) {    
+    public ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory, ArrayList<AnOrder> orders, Connection con) {    
         while(true) {
             System.out.println("\nWelcome back Owner! Please select and enter a number from the following choices:\n");
             System.out.println("1. View Inventory");
@@ -58,6 +61,17 @@ public class Owner extends AbstractUser {
                     }
                     System.out.println("Enter quantity of items being added to stock: ");
                     q = inp_t.nextInt();
+                    //database integration here
+                    try {
+                        CallableStatement ca;
+                        String storedProcedure = "call sp_adjuststock(\'" + id + "\', \'" + q + "\')";
+                        ca = con.prepareCall(storedProcedure);
+                        ca.executeQuery();
+                        System.out.println("Adding stock...");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    //update console memory
                     oneItem.addToStock(q);
                     System.out.println("System Confirmation: Item Quantity has been updated.");
                     break;
@@ -75,7 +89,23 @@ public class Owner extends AbstractUser {
                     int mo = scan.nextInt();
                     System.out.println("What is the expiration day?");
                     int day = scan.nextInt();
-                    inventory.add(new Inventory(name, cost, num, LocalDate.of(year, mo, day)));
+                    Inventory newItem = new Inventory(name, cost, num, LocalDate.of(year, mo, day));
+                    //database integration here
+                    try {
+                        CallableStatement ca;
+                        String storedProcedure = "call sp_addinventory(\'" + newItem.getItemId() + "\', \'" 
+                                                                           + newItem.getName() + "\', \'" 
+                                                                           + newItem.getCost() + "\', \'" 
+                                                                           + newItem.getNumInStock() + "\', \'" 
+                                                                           + newItem.getExpDate() + "\')"; 
+                        ca = con.prepareCall(storedProcedure);
+                        ca.executeQuery();
+                        System.out.println("Adding inventory item...");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    //update console memory
+                    inventory.add(newItem);
                     System.out.println("System Confirmation: New Item has been added.");
                     break;
                 case 5:
@@ -84,6 +114,17 @@ public class Owner extends AbstractUser {
                     for (int i = 0; i < inventory.size(); i++) {
                         if (inventory.get(i).getItemId() == idNum) {
                             System.out.println("System Confirmation: Item removed from Inventory.");
+                            //database integration here
+                            try {
+                                CallableStatement ca;
+                                String storedProcedure = "call sp_removeinventory(\'" + idNum + "\')";
+                                ca = con.prepareCall(storedProcedure);
+                                ca.executeQuery();
+                                System.out.println("Removing inventory item...");
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                            //update console memory
                             inventory.remove(i);
                             break;
                         }
@@ -101,6 +142,17 @@ public class Owner extends AbstractUser {
                     }
                     System.out.println("What is the new price of the item? ");
                     double newCost = scan.nextDouble();
+                    //database integration here
+                    try {
+                        CallableStatement ca;
+                        String storedProcedure = "call sp_updateprice(\'" + oneItem.getItemId() + "\', \'" + newCost + "\')";
+                        ca = con.prepareCall(storedProcedure);
+                        ca.executeQuery();
+                        System.out.println("Updating item price...");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }    
+                    //update console memory
                     oneItem.changePrice(newCost);
                     System.out.println("System Confirmation: Item Price has been updated.");
                     break;

@@ -37,6 +37,17 @@ public class JavaSweetsMethodsDB {
 		return con;
 	}
 
+    public void createNewCustomer(String name, String pswd) {
+        try {
+            CallableStatement ca;
+            String storedProcedure = "call sp_adduser(\'" + name + "\', \'" + pswd + "\')";
+            ca = con.prepareCall(storedProcedure);
+            ca.executeQuery();
+            System.out.println("Adding user...");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
     public ArrayList<User> loadSampleUsers(Connection con) {
         String query = "SELECT * FROM users";
@@ -79,8 +90,7 @@ public class JavaSweetsMethodsDB {
             stmt = con.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        
+        }       
         ArrayList<Inventory> inv = new ArrayList<>();
         ResultSet rs = null;
         try {
@@ -100,10 +110,6 @@ public class JavaSweetsMethodsDB {
         return inv;
     }
 	
-	
-	
-	
-
 	public void viewInventory() {
 		try {
 			stmt = con.createStatement();
@@ -259,21 +265,4 @@ public class JavaSweetsMethodsDB {
             e2.printStackTrace();
         }
     }
-
-
-    public void createNewCustomer(String name, String pswd) {
-        try {
-            CallableStatement ca;
-            String storedProcedure = "call sp_adduser(\'" + name + "\', \'" + pswd + "\')";
-            ca = con.prepareCall(storedProcedure);
-            ca.executeQuery();
-            System.out.println("Adding user...");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
 }

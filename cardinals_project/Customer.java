@@ -1,5 +1,6 @@
 package cardinals_project;
 
+import java.sql.Connection;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Customer extends AbstractUser {
 
 
     @Override
-    public ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory, ArrayList<AnOrder> orders) {
+    public ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory, ArrayList<AnOrder> orders, Connection con) {
         System.out.println("\nWelcome " + username + "!");
         while (true) {       
             System.out.println("\nPlease select and enter a number from the following choices:\n");
