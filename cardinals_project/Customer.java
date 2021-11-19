@@ -13,8 +13,6 @@ public class Customer extends AbstractUser {
 	public Customer(String username, String password) {
         super(username, password);        
     }
-	
-
 
     @Override
     public ArrayList<AnOrder> showMenu(ArrayList<Inventory> inventory, ArrayList<AnOrder> orders, Connection con) {
@@ -27,13 +25,11 @@ public class Customer extends AbstractUser {
             System.out.println("4. Pay for Order");
             System.out.println("5. Return to Main Menu");
             
-            
-            
+              
             Scanner inp_t = new Scanner(System.in);
             NumberFormat nf = NumberFormat.getCurrencyInstance();
             ArrayList<LineItem> lineItems = new ArrayList<>();
             double subtotal = 0;   
-            Payment payDetails;
             Inventory oneItem = null;
             int q = 0;
             Scanner scan = new Scanner(System.in);
@@ -113,7 +109,7 @@ public class Customer extends AbstractUser {
                     for (LineItem lineItem : lineItems) {
                         try {
                             CallableStatement ca;
-                            String storedProcedure = "call sp_addlineitem(\'" + oneItem.getItemId() + "\', \'" + newOrder.getOrderId() + "\', \'" + q + "\')";
+                            String storedProcedure = "call sp_addlineitem(\'" + lineItem.getLineItem().getItemId() + "\', \'" + newOrder.getOrderId() + "\', \'" + lineItem.getQuantity() + "\')";
                             ca = con.prepareCall(storedProcedure);
                             ca.executeQuery();
                             System.out.println("Recording order details...");

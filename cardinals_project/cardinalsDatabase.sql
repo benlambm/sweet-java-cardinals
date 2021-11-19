@@ -70,7 +70,6 @@ UPDATE desserts
 SET numInStock = tmp_num
 WHERE itemId = tmp_itemId;
 
-
 CREATE PROCEDURE sp_addinventory
 (tmp_itemId int,
 tmp_itemName varchar(50),
@@ -79,7 +78,6 @@ tmp_numInStock int,
 tmp_expDate date)
 INSERT INTO desserts
 VALUES (tmp_itemId, tmp_itemName, tmp_cost, tmp_numInStock, tmp_expDate);
-
 
 CREATE PROCEDURE sp_removeinventory
 (tmp_itemId int)
@@ -93,18 +91,29 @@ UPDATE desserts
 SET cost = tmp_cost
 WHERE itemId = tmp_itemId;
 
-
 CREATE PROCEDURE sp_adduser
 (tmp_uname varchar(35),
 tmp_pword varchar(35))
 INSERT INTO users
 VALUES (tmp_uname, tmp_pword, false);
 
+CREATE PROCEDURE sp_addorder
+(tmp_orderId int,
+tmp_userId varchar(35),
+tmp_orderDate date
+)
+INSERT INTO allorders
+VALUES (tmp_orderId, tmp_userId, tmp_orderDate);
 
---CREATE PROCEDURE sp_getID
---(first varchar(20),
--- last varchar(30))
---SELECT authorID FROM authors WHERE firstName = first AND lastName = last;
+CREATE PROCEDURE sp_addlineitem
+(tmp_itemId int,
+tmp_orderId int,
+tmp_numberOrdered int
+)
+INSERT INTO lineitem
+VALUES (tmp_itemId, tmp_orderId, tmp_numberOrdered);
+
+
   
 
 

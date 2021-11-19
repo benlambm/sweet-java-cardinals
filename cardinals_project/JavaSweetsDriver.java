@@ -1,5 +1,6 @@
 package cardinals_project;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,6 +13,7 @@ public class JavaSweetsDriver {
         ArrayList<Inventory> inventory = new ArrayList<>();
         ArrayList<AnOrder> orders = new ArrayList<>();
         boolean dataLoaded = false;
+        Connection con = null;
         
         
         while(true) {
@@ -40,7 +42,7 @@ public class JavaSweetsDriver {
                 if (currentUser == null) {
                     break;
                 }
-                currentUser.showMenu(inventory, orders);
+                currentUser.showMenu(inventory, orders, con);
                 break;
             case 3:
                 if (!dataLoaded) {

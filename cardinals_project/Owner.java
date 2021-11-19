@@ -94,10 +94,8 @@ public class Owner extends AbstractUser {
                     try {
                         CallableStatement ca;
                         String storedProcedure = "call sp_addinventory(\'" + newItem.getItemId() + "\', \'" 
-                                                                           + newItem.getName() + "\', \'" 
-                                                                           + newItem.getCost() + "\', \'" 
-                                                                           + newItem.getNumInStock() + "\', \'" 
-                                                                           + newItem.getExpDate() + "\')"; 
+                                                 + newItem.getName() + "\', \'" + newItem.getCost() + "\', \'" 
+                                                 + newItem.getNumInStock() + "\', \'" + newItem.getExpDate() + "\')"; 
                         ca = con.prepareCall(storedProcedure);
                         ca.executeQuery();
                         System.out.println("Adding inventory item...");
