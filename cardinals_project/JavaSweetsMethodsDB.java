@@ -9,8 +9,6 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 
 public class JavaSweetsMethodsDB {
@@ -21,7 +19,7 @@ public class JavaSweetsMethodsDB {
 
 		con = null;
 
-		String name = "shop";
+		String name = "cardinals220";
 		String url = "jdbc:mysql://localhost:3306/" + name;
 
 		String uid = "itp220";
@@ -33,8 +31,8 @@ public class JavaSweetsMethodsDB {
 			Class.forName(driver);
 		} catch (Exception e) {
 			e.printStackTrace();
-
 		}
+		
 		try {
 			con = DriverManager.getConnection(url, uid, pass);
 			System.out.println("Connection successful!");
@@ -45,7 +43,6 @@ public class JavaSweetsMethodsDB {
 
 		System.out.println("A new connection was made");
 		return con;
-
 	}
 
 	public void viewInventory() {
@@ -92,8 +89,7 @@ public class JavaSweetsMethodsDB {
 			ResultSet rs = stmt.executeQuery(query);
 			if (rs != null) {
 				rs.next();
-				Inventory invent = new Inventory(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getInt(4),
-						rs.getLocalDate(5), rs.getInt(6));
+				Inventory invent = new Inventory(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getInt(4), LocalDate.of(0, 0, 0));
 				// I am not sure that getLocalDate is correct here
 				System.out.println(invent.toString());
 			} else {
@@ -102,7 +98,6 @@ public class JavaSweetsMethodsDB {
 		} catch (SQLException e) {
 			System.out.println("That item does not exist");
 		}
-
 	}
 
 	public void addInventory() {
@@ -125,7 +120,7 @@ public class JavaSweetsMethodsDB {
 		int mo = scan.nextInt();
 		System.out.println("What is the expiration day?");
 		int day = scan.nextInt();
-		LocalDate date = new LocalDate(year, mo, day);
+		LocalDate date = LocalDate.of(year, mo, day);
 		// How to handle a local date here?
 		System.out.println("System Confirmation: New Item has been added.");
 
@@ -186,28 +181,86 @@ public class JavaSweetsMethodsDB {
 		String query = "select * from orders";
 	        
 		try {
-					stmt = con.createStatement();					
+			stmt = con.createStatement();					
+	
+			ResultSet rs = stmt.executeQuery(query);
+			System.out.println(" ");
+			System.out.println("All Orders: ");
+			ResultSetMetaData meta = rs.getMetaData();
+			int columns = meta.getColumnCount();
 			
-					ResultSet rs = stmt.executeQuery(query);
-					System.out.println(" ");
-					System.out.println("All Orders: ");
-					ResultSetMetaData meta = rs.getMetaData();
-					int columns = meta.getColumnCount();
-					
-					while (rs.next()){
-						for (int i=1;i<columns+1;i++) {
-							String s = rs.getString(i);
-							System.out.print(s + "  " );
-						}
-						System.out.println("");
-					}
-			} catch (SQLException e2) {
-	            e2.printStackTrace();
-	        }
+			while (rs.next()){
+				for (int i=1;i<columns+1;i++) {
+					String s = rs.getString(i);
+					System.out.print(s + "  " );
+				}
+				System.out.println("");
+			}
+		} catch (SQLException e2) {
+            e2.printStackTrace();
+        }
     }
 
-	public void placeAnOder() {
-		
 	
-	}
+    public ArrayList<User> loadSampleUsers(Connection con) {
+        String query = "SELECT * FROM users";
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        ArrayList<User> users = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            rs = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            while(rs.next()) {
+                String uname = rs.getString(1);
+                String pword = rs.getString(2);
+                boolean own = rs.getBoolean(3);
+                if(own) {
+                    users.add(new Owner(uname, pword));
+                } else {
+                    users.add(new Customer(uname, pword));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    
+    public ArrayList<Inventory> loadSampleSweets(Connection con) {
+        String query = "SELECT * FROM desserts";
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        ArrayList<Inventory> inv = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String itemName = rs.getString(2);
+                double cost = rs.getDouble(3);
+                int num = rs.getInt(4);
+                LocalDate date = rs.getDate(5).toLocalDate();
+                inv.add(new Inventory(id, itemName, cost, num, date));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return inv;
+    }
 }

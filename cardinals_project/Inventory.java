@@ -19,6 +19,14 @@ public class Inventory {
         numInStock = num;
         expDate = e;    
     }
+    
+    public Inventory(int id, String n, double c, int num, LocalDate e) {
+        itemId = id;
+        name = n;
+        cost = c;
+        numInStock = num;
+        expDate = e;    
+    }
 
     public String toString() {
         NumberFormat nf = NumberFormat.getCurrencyInstance();

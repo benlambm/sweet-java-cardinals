@@ -39,12 +39,12 @@ insert into users (username, password, owner) values ('cardinal', 'cardinal', tr
 insert into users (username, password, owner) values ('guest', 'guest', false);
 insert into users (username, password, owner) values ('JamesBond', '007', false);
 
-insert into desserts (itemId, itemName, cost, numInStock, expDate) values (1, 'Pumpkin Pie', 12.95, 5, '2021-11-31');
-insert into desserts (itemId, itemName, cost, numInStock, expDate) values (2, 'Apple Cider Donut', 1.79, 35, '2020-11-31');
-insert into desserts (itemId, itemName, cost, numInStock, expDate) values (3, 'Pecan Roll', 15.00, 8, '2021-11-31');
-insert into desserts (itemId, itemName, cost, numInStock, expDate) values (4, 'Maple-Syrup Candies', 2.18, 234, '2021-11-31');
-insert into desserts (itemId, itemName, cost, numInStock, expDate) values (5, 'Caramel-Dipped Apple', 1.50, 13, '2020-11-31');
-insert into desserts (itemId, itemName, cost, numInStock, expDate) values (6, 'Pumpkin-Banana Bread', 6.95, 14, '2020-11-31');
+insert into desserts (itemId, itemName, cost, numInStock, expDate) values (1, 'Pumpkin Pie', 12.95, 5, '2021-11-30');
+insert into desserts (itemId, itemName, cost, numInStock, expDate) values (2, 'Apple Cider Donut', 1.79, 35, '2020-11-30');
+insert into desserts (itemId, itemName, cost, numInStock, expDate) values (3, 'Pecan Roll', 15.00, 8, '2021-11-30');
+insert into desserts (itemId, itemName, cost, numInStock, expDate) values (4, 'Maple-Syrup Candies', 2.18, 234, '2021-11-30');
+insert into desserts (itemId, itemName, cost, numInStock, expDate) values (5, 'Caramel-Dipped Apple', 1.50, 13, '2020-11-30');
+insert into desserts (itemId, itemName, cost, numInStock, expDate) values (6, 'Pumpkin-Banana Bread', 6.95, 14, '2020-11-30');
 
 insert into allOrders (orderId, userId, orderDate) values (101, 'guest', '2021-10-24');
 insert into allOrders (orderId, userId, orderDate) values (102, 'guest', '2021-09-27');
