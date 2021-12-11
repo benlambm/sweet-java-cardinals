@@ -16,6 +16,11 @@ Owner-Login: username is cardinal, password is cardinal
 Customer-Login: username is guest, password is guest [or create a new one]
 
 
+Git integration:
+Our source-code repository can be viewed at https://github.com/benlambm/sweet-java-cardinals
+
+
+
 
 
 OLD CONSOLE VERSION
