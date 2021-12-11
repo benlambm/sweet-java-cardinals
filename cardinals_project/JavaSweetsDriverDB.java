@@ -3,6 +3,9 @@ package cardinals_project;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class JavaSweetsDriverDB {
     
@@ -14,8 +17,8 @@ public class JavaSweetsDriverDB {
         boolean dataLoaded = false;        
         JavaSweetsMethodsDB db = new JavaSweetsMethodsDB();
         Connection con = null;
-  
-        while(true) {
+        
+        while(true) {                       
             loadMainMenu();
             String str = scan.nextLine();
             int menuOption = validateMenuInput(str);
